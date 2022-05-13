@@ -1,0 +1,51 @@
+<section>
+  <div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img
+                src="https://play-lh.googleusercontent.com/1VafwOTCRKTDKXYUbGHSXdMLUip7HJgaLEPVu6o5FnqB06N0zzaTQ88lzxTRlfYkNVk"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">
+                    {{loginMode? 'Sign into your account' : 'Sign up new account'}}</h5>
+
+
+                  <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" ngModel
+                      name="email" required email>
+                    <label for="floatingInput">Email address</label>
+                  </div>
+
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" ngModel
+                      name="password" required minlength="6">
+                    <label for="floatingPassword">Password</label>
+                  </div>
+
+                  <div class="pt-1 mb-4 mt-2">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit"
+                      [disabled]="!authForm.valid">{{loginMode? "Login" : "Register"}} </button>
+                  </div>
+
+                  <p class="mb-5 pb-lg-2" style="color: #393f81;">
+                    {{loginMode? "Don't have an account?" : "Already have an account?"}}
+                    <a href="#!" style="color: #393f81;" (click)="loginMode=!loginMode">
+                      {{loginMode? "Register here" : "Login here"}} </a>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
