@@ -6,7 +6,7 @@
           <b>{{error}}</b>
           <p class="text-muted">(click to close)</p>
        </div>
-        <div *ngIf="isLoading" style="text-align: center;" class="mt-5">
+        <div *ngIf="isLoading" class="mt-5 text-center">
           <app-loading-spinner></app-loading-spinner>
        </div>
         <div class="card" *ngIf="!isLoading">
@@ -22,20 +22,20 @@
 
                 <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
 
-                  <h5 class="fw-normal mb-3" style="letter-spacing: 1px;">
+                  <h5 class="fw-normal mb-3">
                     {{loginMode? 'Sign into existing account' : 'Create new account'}}</h5>
 
 
                   <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" ngModel
+                    <input type="email" class="form-control" placeholder="name@example.com" ngModel
                       name="email" required email>
-                    <label for="floatingInput">Email address</label>
+                    <label >Email address</label>
                   </div>
 
                   <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" ngModel
+                    <input type="password" class="form-control" placeholder="Password" ngModel
                       name="password" required minlength="6">
-                    <label for="floatingPassword">Password</label>
+                    <label>Password</label>
                   </div>
 
                   <div class="pt-1 mb-4 mt-2">
@@ -43,9 +43,9 @@
                       [disabled]="!authForm.valid">{{loginMode? "Login" : "Register"}} </button>
                   </div>
 
-                  <p  style="color: #393f81;">
+                  <p class="switchAccountText">
                     {{loginMode? "Don't have an account?" : "Already have an account?"}}
-                    <a href="" (click)="loginMode=!loginMode">
+                    <a class="loginModeText" (click)="changeMode()">
                       {{loginMode? "Register here" : "Login here"}} </a>
                   </p>
                 </form>

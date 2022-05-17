@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { AuthResponseData, AuthService } from "./auth.service";
 
 @Component({
@@ -10,13 +10,18 @@ import { AuthResponseData, AuthService } from "./auth.service";
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy{
 
-  loginMode = true;
-  error = null;
-  isLoading = false;
+  loginMode: boolean = true;
+  error: HttpErrorResponse | null = null;
+  isLoading: boolean = false;
+  private authSubscription: Subscription = new Subscription();
 
   constructor(private authService: AuthService, private router: Router) { }
+
+  changeMode() {
+    this.loginMode = !this.loginMode;
+  }
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
@@ -35,7 +40,7 @@ export class AuthComponent {
       authObservable = this.authService.login(email, password);
     }
 
-    authObservable.subscribe(res => {
+    const subscription = authObservable.subscribe(res => {
       this.isLoading = false;
       this.router.navigate(['/weather']);
     },
@@ -43,7 +48,13 @@ export class AuthComponent {
         this.error = error
         this.isLoading = false;
       });
+      
+    this.authSubscription.add(subscription);
 
     form.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.authSubscription.unsubscribe();
   }
 }

@@ -1,16 +1,17 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
+import { BehaviorSubject, catchError, Observable, Subscription, tap, throwError } from "rxjs";
+import { environment } from "src/environments/environment";
 import { User } from "./user.model";
 
 
 export class AuthResponseData {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
+  idToken?: string;
+  email?: string;
+  refreshToken?: string;
+  expiresIn?: string;
+  localId?: string;
   registered?: boolean;
 }
 
@@ -18,36 +19,36 @@ export class AuthResponseData {
 export class AuthService {
 
 
-  user = new BehaviorSubject<User>(null);
+  user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(null);
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  register(email: string, password: string) {
+  register(email: string, password: string): Observable<AuthResponseData> {
 
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      }).pipe(catchError(this.handleError),tap(res => {
-        const user = new User(res.email);
-        this.user.next(user);
-      }));
-  }
-
-  login(email: string, password: string) {
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE',
+    return this.http.post<AuthResponseData>(environment.registerUrl,
       {
         email: email,
         password: password,
         returnSecureToken: true
       }).pipe(catchError(this.handleError), tap(res => {
-        const user = new User(res.email);
+        const user = new User(res.email!);
+        this.user.next(user);
+      }));
+  }
+
+  login(email: string, password: string): Observable<AuthResponseData> {
+    return this.http.post<AuthResponseData>(environment.loginUrl,
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }).pipe(catchError(this.handleError), tap(res => {
+        const user = new User(res.email!);
         this.user.next(user);
       }));;
   }
 
-  logout() {
+  logout(): void {
     this.user.next(null);
     this.router.navigate(["/auth"]);
   }

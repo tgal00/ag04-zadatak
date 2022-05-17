@@ -6,25 +6,27 @@ import { AuthService } from "../auth/auth.service";
   selector: "app-header",
   templateUrl: "./header.component.html"
 })
-export class HeaderComponent implements OnInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
 
   private userSubsciption: Subscription = new Subscription();
   isAuthenticated = false;
 
-  constructor(private authService:AuthService){}
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.user.subscribe(user=>{
+    const subscription = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     })
-    this.userSubsciption.add(this.userSubsciption);
-  }
-
-  onLogout(){
-    this.authService.logout();
+    this.userSubsciption.add(subscription);
   }
 
   ngOnDestroy(): void {
     this.userSubsciption.unsubscribe();
   }
+
+  onLogout(): void {
+    this.authService.logout();
+  }
+
+
 }
