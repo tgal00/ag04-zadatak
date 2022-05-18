@@ -1,0 +1,20 @@
+.card {
+  border: none;
+  border-radius: 2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+img{
+  border-radius: 2rem 0 0 2rem;
+}
+
+.fw-normal{
+  letter-spacing: 1px;
+}
+
+.switchAccountText{
+  color: #393f81;
+}
+.loginModeText{
+  text-decoration: underline;
+  cursor: pointer;
+}

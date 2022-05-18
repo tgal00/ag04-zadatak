@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  registerUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE',
+  loginUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE'
 };
 
 /*

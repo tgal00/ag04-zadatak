@@ -1,0 +1,63 @@
+<section>
+  <div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col col-xl-10" >
+        <div class="alert alert-danger text-center" *ngIf="error" (click)="error=null">
+          <b>{{error}}</b>
+          <p class="text-muted">(click to close)</p>
+       </div>
+        <div *ngIf="isLoading" class="mt-5 text-center">
+          <app-loading-spinner></app-loading-spinner>
+       </div>
+        <div class="card" *ngIf="!isLoading">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block " >
+              <img
+                src="https://play-lh.googleusercontent.com/1VafwOTCRKTDKXYUbGHSXdMLUip7HJgaLEPVu6o5FnqB06N0zzaTQ88lzxTRlfYkNVk"
+                alt="login form" class="img-fluid"/>
+            </div>
+
+            <div class="col-md-6 col-lg-7 px-3 d-flex align-items-center">
+              <div class="card-body text-black">
+
+                <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+
+                  <h5 class="fw-normal mb-3">
+                    {{loginMode? 'Sign into existing account' : 'Create new account'}}</h5>
+
+
+                  <div class="form-floating mb-3">
+                    <input type="email" class="form-control" placeholder="name@example.com" ngModel
+                      name="email" required email>
+                    <label >Email address</label>
+                  </div>
+
+                  <div class="form-floating">
+                    <input type="password" class="form-control" placeholder="Password" ngModel
+                      name="password" required minlength="6">
+                    <label>Password</label>
+                  </div>
+
+                  <div class="pt-1 mb-4 mt-2">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit"
+                      [disabled]="!authForm.valid">{{loginMode? "Login" : "Register"}} </button>
+                  </div>
+
+                  <p class="switchAccountText">
+                    {{loginMode? "Don't have an account?" : "Already have an account?"}}
+                    <a class="loginModeText" (click)="changeMode()">
+                      {{loginMode? "Register here" : "Login here"}} </a>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+
+
