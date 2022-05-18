@@ -19,7 +19,7 @@ export class AuthResponseData {
 export class AuthService {
 
 
-  user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(null);
+  user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -31,8 +31,7 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }).pipe(catchError(this.handleError), tap(res => {
-        const user = new User(res.email!);
-        this.user.next(user);
+        this.handleAuth(res.email!);
       }));
   }
 
@@ -43,13 +42,45 @@ export class AuthService {
         password: password,
         returnSecureToken: true
       }).pipe(catchError(this.handleError), tap(res => {
-        const user = new User(res.email!);
-        this.user.next(user);
-      }));;
+        this.handleAuth(res.email!);
+      }));
   }
+
+  private handleAuth(email: string): void {
+    let todaysDate = new Date().toLocaleDateString().replace(/\s/g, "").split('.').join("");
+    const xToken = email + todaysDate;
+    const user = new User(email,xToken);
+    this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
+    
+
+  }
+
+  autoLogin() {
+    const userToken: {email:string,  xToken: string } = JSON.parse(localStorage.getItem("userData")!);
+    if (!userToken) {
+      return;
+    }
+    const loadedUser = new User(userToken.email,userToken.xToken);
+    if (userToken) {
+      this.user.next(loadedUser);
+    }
+  }
+
+  getUser(){
+    const userToken: {email:string,  xToken: string } = JSON.parse(localStorage.getItem("userData")!);
+    if (userToken) {
+      return userToken.email
+    }
+    else{
+      return "";
+    }
+  }
+
 
   logout(): void {
     this.user.next(null);
+    localStorage.removeItem("userData");
     this.router.navigate(["/auth"]);
   }
 

@@ -28,5 +28,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  getUser() {
+    return this.authService.getUser();
+  }
+
 
 }
