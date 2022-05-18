@@ -49,28 +49,28 @@ export class AuthService {
   private handleAuth(email: string): void {
     let todaysDate = new Date().toLocaleDateString().replace(/\s/g, "").split('.').join("");
     const xToken = email + todaysDate;
-    const user = new User(email,xToken);
+    const user = new User(email);
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
-    
-
+    localStorage.setItem('userToken', JSON.stringify(xToken));
   }
 
   autoLogin() {
-    const userToken: {email:string,  xToken: string } = JSON.parse(localStorage.getItem("userData")!);
-    if (!userToken) {
+    const userToken: {xToken: string } = JSON.parse(localStorage.getItem("userToken")!);
+    const userData: {email: string } = JSON.parse(localStorage.getItem("userData")!);
+    if (!userToken||!userData) {
       return;
     }
-    const loadedUser = new User(userToken.email,userToken.xToken);
-    if (userToken) {
+    const loadedUser = new User(userData.email);
+    if (loadedUser) {
       this.user.next(loadedUser);
     }
   }
 
   getUser(){
-    const userToken: {email:string,  xToken: string } = JSON.parse(localStorage.getItem("userData")!);
-    if (userToken) {
-      return userToken.email
+    const userData: {email:string} = JSON.parse(localStorage.getItem("userData")!);
+    if (userData) {
+      return userData.email.substring(0,userData.email.indexOf('@'));
     }
     else{
       return "";
@@ -81,6 +81,7 @@ export class AuthService {
   logout(): void {
     this.user.next(null);
     localStorage.removeItem("userData");
+    localStorage.removeItem("userToken");
     this.router.navigate(["/auth"]);
   }
 

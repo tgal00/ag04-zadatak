@@ -11,6 +11,7 @@ import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './header/header.component';
 import { WeatherComponent } from './weather/weather.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
    declarations: [
