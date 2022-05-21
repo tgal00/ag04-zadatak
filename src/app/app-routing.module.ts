@@ -7,7 +7,7 @@ import { WeatherComponent } from './weather/weather.component';
 const routes: Routes = [
    {path:"",redirectTo:'/weather',pathMatch:'full'},
    {path:"auth",component:AuthComponent},
-   {path:"weather",component:WeatherComponent, canActivate: [AuthGuard]}
+   {path:"weather",component:WeatherComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
