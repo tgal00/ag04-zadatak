@@ -1,33 +1,38 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Subscription } from "rxjs";
+import { environment } from "src/environments/environment";
 import { CityWeatherService } from "../../city-weather.service";
 import { RootObject } from "../../weather-response.model";
 
 @Component({
   selector: "app-city-weather-item",
   templateUrl: "./city-weather-item.component.html",
-  styleUrls:["./city-weather-item.component.css"]
+  styleUrls: ["./city-weather-item.component.css"]
 })
-export class CityWeatherItemComponent implements OnInit {
+export class CityWeatherItemComponent implements OnInit, OnDestroy {
 
   @Input() cityName: string = "";
   cityWeather!: RootObject;
   time: Date = new Date();
-  iconUrl:string  = "";
+  iconUrl: string = "";
+  private subscription = new Subscription();
 
-  constructor(private http: HttpClient, private cityWeatherService:CityWeatherService) { }
+  constructor(private http: HttpClient, private cityWeatherService: CityWeatherService) { }
 
   ngOnInit(): void {
-   this.cityWeatherService.getWeatherForCity(this.cityName)
+    this.subscription = this.cityWeatherService.getWeatherForCity(this.cityName)
       .subscribe(res => {
-        if(res){
-        console.log(res);
-        this.cityWeather = res;
-        this.iconUrl = `http://openweathermap.org/img/wn/${this.cityWeather.weather[0].icon}@2x.png`
+        if (res) {
+          this.cityWeather = res;
+          this.iconUrl = environment.weatherResIconUrl +`${this.cityWeather.weather[0].icon}@2x.png`;
         }
       });
 
+  }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

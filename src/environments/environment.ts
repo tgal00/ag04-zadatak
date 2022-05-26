@@ -5,7 +5,11 @@
 export const environment = {
   production: false,
   registerUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE',
-  loginUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE'
+  loginUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBsdIJLI0jUhn7oPtpQ7_WTrWpP4AWfVHE',
+  
+  weatherResIconUrl: 'http://openweathermap.org/img/wn/',
+  openWeatherUrl: 'https://api.openweathermap.org/data/2.5/',
+  openWeatherAPIKey: 'c74421f64ebac952e7d8a6bea147f0b3'
 };
 
 /*

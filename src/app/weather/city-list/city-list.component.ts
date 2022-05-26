@@ -8,7 +8,7 @@ import { CityListService } from "../city-list.service";
 })
 export class CityListComponent implements OnInit,OnDestroy{
 
-  subscription:Subscription = new Subscription();
+  private subscription:Subscription = new Subscription();
   cityList:string[] = [];
 
   constructor(private cityListService:CityListService){}
