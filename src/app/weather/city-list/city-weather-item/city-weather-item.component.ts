@@ -21,7 +21,7 @@ export class CityWeatherItemComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private cityWeatherService: CityWeatherService) { }
 
   ngOnInit(): void {
-    this.subscription = this.cityWeatherService.getWeatherForCity(this.cityName)
+    let sub = this.cityWeatherService.getWeatherForCity(this.cityName)
       .subscribe(res => {
         if (res) {
           this.cityWeather = res;
@@ -29,6 +29,7 @@ export class CityWeatherItemComponent implements OnInit, OnDestroy {
         }
       });
 
+      this.subscription.add(sub);
   }
 
   ngOnDestroy(): void {

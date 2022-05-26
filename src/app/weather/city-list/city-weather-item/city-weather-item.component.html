@@ -1,8 +1,8 @@
-<div class="card mb-5 border" *ngIf="cityWeather">
+<div class="card mb-5 border" *ngIf="cityWeather" routerLink="{{cityWeather.name}}">
   <div class="card-body">
 
     <div class="d-flex">
-      <h4 class="flex-grow-1 text-muted">{{cityWeather.name}}, {{cityWeather.sys.country}}</h4>
+      <h4 class="flex-grow-1 text-muted" >{{cityWeather.name}}, {{cityWeather.sys.country}}</h4>
       <h6 class="text-muted">{{time|date:'short'}}</h6>
     </div>
 
@@ -28,4 +28,7 @@
     </div>
 
   </div>
+
+  
 </div>
+
