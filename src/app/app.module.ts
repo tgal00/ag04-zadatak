@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -11,19 +11,25 @@ import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './header/header.component';
 import { WeatherComponent } from './weather/weather.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
-import { AuthGuard } from './auth/auth.guard';
-
+import { CityAddComponent } from './weather/city-add/city-add.component';
+import { CityListComponent } from './weather/city-list/city-list.component';
+import { CityWeatherItemComponent } from './weather/city-list/city-weather-item/city-weather-item.component';
+import { CityWeatherService } from './weather/city-weather.service';
 @NgModule({
    declarations: [
       AppComponent,
       HeaderComponent,
       AuthComponent,
       WeatherComponent,
-      LoadingSpinnerComponent
+      LoadingSpinnerComponent,
+      CityAddComponent,
+      CityListComponent,
+      CityWeatherItemComponent
    ],
    imports: [
       BrowserModule,
       FormsModule,
+      ReactiveFormsModule,
       AppRoutingModule,
       HttpClientModule
    ],

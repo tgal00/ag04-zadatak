@@ -5,4 +5,5 @@
 body {
   background-color: rgb(215, 228, 245);
   height: 100vh;
+  overflow: auto;
 }
