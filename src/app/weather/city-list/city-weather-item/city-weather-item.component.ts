@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { map, Observable, Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CityWeatherService } from "../../city-weather.service";
 import { RootObject } from "../../weather-response.model";
@@ -10,30 +10,25 @@ import { RootObject } from "../../weather-response.model";
   templateUrl: "./city-weather-item.component.html",
   styleUrls: ["./city-weather-item.component.css"]
 })
-export class CityWeatherItemComponent implements OnInit, OnDestroy {
+export class CityWeatherItemComponent implements OnInit {
 
   @Input() cityName: string = "";
-  cityWeather!: RootObject;
   time: Date = new Date();
-  iconUrl: string = "";
-  private subscription = new Subscription();
+  readonly NUMBER_FORMAT: string = '1.0-0';
+
+
+  cityWeather$!: Observable<RootObject>;
+  iconUrl$!: Observable<string>;
 
   constructor(private http: HttpClient, private cityWeatherService: CityWeatherService) { }
 
   ngOnInit(): void {
-    let sub = this.cityWeatherService.getWeatherForCity(this.cityName)
-      .subscribe(res => {
-        if (res) {
-          this.cityWeather = res;
-          this.iconUrl = environment.weatherResIconUrl +`${this.cityWeather.weather[0].icon}@2x.png`;
-        }
-      });
 
-      this.subscription.add(sub);
-  }
+    this.cityWeather$ = this.cityWeatherService.getWeatherForCity(this.cityName);
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.iconUrl$ = this.cityWeatherService.getWeatherForCity(this.cityName).pipe(
+      map(value => value ? environment.weatherResIconUrl + `${value.weather[0].icon}@2x.png` : ""));
+
   }
 
 }

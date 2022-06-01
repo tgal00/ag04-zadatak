@@ -1,6 +1,6 @@
 
 
-export interface Main {
+export interface MainWeatherInfo {
   temp: number;
   feels_like: number;
   temp_min: number;
@@ -35,7 +35,7 @@ export interface Sys {
 
 export interface List {
   dt: number;
-  main: Main;
+  main: MainWeatherInfo;
   weather: Weather[];
   clouds: Clouds;
   wind: Wind;

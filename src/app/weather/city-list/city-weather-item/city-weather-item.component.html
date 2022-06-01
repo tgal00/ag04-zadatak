@@ -1,4 +1,4 @@
-<div class="card mb-5 border" *ngIf="cityWeather" routerLink="{{cityWeather.name}}">
+<div class="card mb-5 border" *ngIf="cityWeather$ |async as cityWeather" routerLink="{{cityWeather.name}}">
   <div class="card-body">
 
     <div class="d-flex">
@@ -8,7 +8,7 @@
 
     <div class="d-flex flex-column text-center mt-5 mb-4">
       <h6 class="display-4 mb-0 font-weight-bold">
-          {{cityWeather.main.feels_like | number: '1.0-0'}}°C
+          {{cityWeather.main.feels_like | number: NUMBER_FORMAT}}°C
       </h6>
       <span class="small text-muted">{{cityWeather.weather[0].description}}</span>
     </div>
@@ -23,7 +23,7 @@
         </div>
       </div>
       <div>
-        <img src={{iconUrl}}> 
+        <img *ngIf="iconUrl$ | async as iconUrl" src={{iconUrl}}> 
       </div>
     </div>
 
