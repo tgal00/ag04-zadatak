@@ -14,7 +14,7 @@ export class CityAddComponent implements OnInit {
 
 
   addCityForm!: FormGroup;
-  constructor(private cityListService: CityListService, private cityWeatherService: CityWeatherService) { }
+  constructor(private cityListService: CityListService) { }
 
   ngOnInit(): void {
     this.initForm();

@@ -1,0 +1,10 @@
+.card{
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  border-radius: 20px;
+}
+
+.card:hover{
+  transform: scale(1.05);
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
