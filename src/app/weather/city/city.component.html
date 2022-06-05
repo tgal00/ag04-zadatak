@@ -1,14 +1,22 @@
-<div class="container mt-5 " *ngIf="city">
+<div class="container mt-5" *ngIf="city">
 
-  <h3 class="display-6">{{city.city.name}}</h3>
-  <div class="row justify-content-center mt-3">
-    <div class="col-xs-12 col-lg-2 text-center" *ngFor="let c of cityList">
-      <div class="card border-light mb-3">
-        <div class="card-body">
-          <h5 class="card-title">{{c.dt_txt | date:'EEE'}}</h5>
-          <img src="http://openweathermap.org/img/wn/{{c.weather[0].icon}}@2x.png">
-          <p class="card-text">{{c.main.temp_max | number: NUMBER_FORMAT}}° <span class="text-muted">{{c.main.temp_min |
-              number: NUMBER_FORMAT}}° </span></p>
+  <div class="card p-3 mb-5">
+    <div class="card-body">
+      <h5 class="card-title display-5">{{city.city.name}}</h5>
+      <h5 class="card-subtitle mb-2 display-6 text-muted">5 Day Forecast</h5>
+      <a class="card-link btn btn-outline-secondary" routerLink="../">← City List</a>
+    </div>
+
+    <div class="row justify-content-center mt-4 mb-4">
+      <div class="col-xs-12 col-lg-2 text-center " *ngFor="let c of cityList" (click)="onShowCityHourly(c.dt_txt)">
+        <div class="card  mb-3 weatherCard">
+          <div class="card-body">
+            <h5 class="card-title">{{c.dt_txt | date:'EEE'}}</h5>
+            <img src="http://openweathermap.org/img/wn/{{c.weather[0].icon}}@2x.png">
+            <p class="card-text">{{c.main.temp_max | number: NUMBER_FORMAT}}° <span class="text-muted">{{c.main.temp_min
+                |
+                number: NUMBER_FORMAT}}° </span></p>
+          </div>
         </div>
       </div>
     </div>

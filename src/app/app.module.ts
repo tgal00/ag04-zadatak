@@ -16,6 +16,7 @@ import { CityListComponent } from './weather/city-list/city-list.component';
 import { CityWeatherItemComponent } from './weather/city-list/city-weather-item/city-weather-item.component';
 import { CityWeatherService } from './weather/city-weather.service';
 import { CityComponent } from './weather/city/city.component';
+import { CityHourlyComponent } from './weather/city/city-hourly/city-hourly.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { CityComponent } from './weather/city/city.component';
     CityAddComponent,
     CityListComponent,
     CityWeatherItemComponent,
-    CityComponent
+    CityComponent,
+    CityHourlyComponent
   ],
   imports: [
     BrowserModule,
