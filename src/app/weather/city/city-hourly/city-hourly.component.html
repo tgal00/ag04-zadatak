@@ -23,7 +23,7 @@
               <td>
                 <p class="lead">{{hour.dt_txt|date:'shortTime'}}</p>
               </td>
-              <td><img src="http://openweathermap.org/img/wn/{{hour.weather[0].icon}}.png"></td>
+              <td><img src="{{openWeatherIconUrl}}{{hour.weather[0].icon}}.png"></td>
               <td>
                 <p class="lead">{{hour.main.feels_like | number: NUMBER_FORMAT}}°C</p>
               </td>
