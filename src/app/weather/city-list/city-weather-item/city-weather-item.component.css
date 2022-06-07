@@ -12,6 +12,3 @@
   transition-duration: 0.3s;
 }
 
-.card:hover h4{
-  text-decoration: underline;
-}
