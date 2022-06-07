@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { map, Observable, Subscription } from "rxjs";
 import { environment } from "src/environments/environment";
+import { CityListService } from "../../city-list.service";
 import { CityWeatherService } from "../../city-weather.service";
 import { RootObject } from "../../weather-response.model";
 
@@ -20,7 +21,7 @@ export class CityWeatherItemComponent implements OnInit {
   cityWeather$!: Observable<RootObject>;
   iconUrl$!: Observable<string>;
 
-  constructor(private http: HttpClient, private cityWeatherService: CityWeatherService) { }
+  constructor(private http: HttpClient, private cityWeatherService: CityWeatherService, private cityListService:CityListService) { }
 
   ngOnInit(): void {
 
@@ -31,4 +32,7 @@ export class CityWeatherItemComponent implements OnInit {
 
   }
 
+  onDeleteCity(){
+    this.cityListService.deleteCity(this.cityName);
+  }
 }

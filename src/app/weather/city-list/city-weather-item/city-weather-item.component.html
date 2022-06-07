@@ -1,19 +1,28 @@
-<div class="card mb-5 border" *ngIf="cityWeather$ |async as cityWeather" routerLink="{{cityWeather.name}}">
-  <div class="card-body">
+<div class="card mb-5 border" *ngIf="cityWeather$ |async as cityWeather">
+  <div class="card-body mt-2" routerLink="{{cityWeather.name}}">
 
-    <div class="d-flex">
-      <h4 class="flex-grow-1 text-muted" >{{cityWeather.name}}, {{cityWeather.sys.country}}</h4>
+    <div class="d-flex" >
+      <h4 class="flex-grow-1 text-muted">{{cityWeather.name}}, {{cityWeather.sys.country}}</h4>
       <h6 class="text-muted">{{time|date:'short'}}</h6>
     </div>
 
-    <div class="d-flex flex-column text-center mt-5 mb-4">
+    <button class="btn btn-outline-danger btn-sm" (click)="onDeleteCity()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+      </svg>
+    </button>
+
+
+    <div class="d-flex flex-column text-center" >
       <h6 class="display-4 mb-0 font-weight-bold">
-          {{cityWeather.main.feels_like | number: NUMBER_FORMAT}}°C
+        {{cityWeather.main.feels_like | number: NUMBER_FORMAT}}°C
       </h6>
       <span class="small text-muted">{{cityWeather.weather[0].description}}</span>
     </div>
 
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center" >
       <div class="flex-grow-1">
         <div>
           <span class="ms-1"> Wind: {{cityWeather.wind.speed}} km/h </span>
@@ -23,12 +32,11 @@
         </div>
       </div>
       <div>
-        <img *ngIf="iconUrl$ | async as iconUrl" src={{iconUrl}}> 
+        <img *ngIf="iconUrl$ | async as iconUrl" src={{iconUrl}}>
       </div>
     </div>
 
   </div>
 
-  
-</div>
 
+</div>
