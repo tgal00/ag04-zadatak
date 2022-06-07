@@ -12,7 +12,7 @@ export interface Weather {
   icon: string;
 }
 
-export interface Main {
+export interface MainWeatherInfo {
   temp: number;
   feels_like: number;
   temp_min: number;
@@ -43,7 +43,7 @@ export interface RootObject {
   coord: Coord;
   weather: Weather[];
   base: string;
-  main: Main;
+  main: MainWeatherInfo;
   visibility: number;
   wind: Wind;
   clouds: Clouds;

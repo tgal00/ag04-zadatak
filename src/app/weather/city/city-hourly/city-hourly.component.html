@@ -1,0 +1,36 @@
+<div class="container mt-5 ">
+
+  <div class="card p-3 mb-5">
+    <div class="card-body">
+      <h5 class="card-title display-5">{{cityName}}</h5>
+      <h5 class="card-subtitle mb-2 display-6 text-muted">{{day}}, <small>3 Hour Forecast</small></h5>
+      <a class="card-link btn btn-outline-secondary" routerLink="../">← 5 Day Forecast</a>
+    </div>
+
+
+    <div class="row p-2 mt-3 mb-1">
+      <div class="col">
+        <table class="table align-middle table-success  table-striped  ">
+          <thead>
+            <tr>
+              <th>Hour</th>
+              <th>Weather</th>
+              <th>Temp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hour of cityHourlyList">
+              <td>
+                <p class="lead">{{hour.dt_txt|date:'shortTime'}}</p>
+              </td>
+              <td><img src="{{openWeatherIconUrl}}{{hour.weather[0].icon}}.png"></td>
+              <td>
+                <p class="lead">{{hour.main.feels_like | number: NUMBER_FORMAT}}°C</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

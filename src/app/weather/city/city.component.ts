@@ -1,8 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription, Timestamp } from "rxjs";
+import { environment } from "src/environments/environment";
 import { CityWeatherService } from "../city-weather.service";
 import { List, RootObject5Day } from "../weather-response5day.model";
+
+
+export const days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
 
 @Component({
   selector: "app-city",
@@ -16,8 +21,9 @@ export class CityComponent implements OnInit, OnDestroy {
   city!:RootObject5Day;
   private subscription:Subscription = new Subscription();
   readonly NUMBER_FORMAT: string = '1.0-0';
+  readonly openWeatherIconUrl: string = environment.weatherResIconUrl;
 
-  constructor(private cityWeatherService: CityWeatherService, private route: ActivatedRoute) { }
+  constructor(private cityWeatherService: CityWeatherService, private route: ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
 
@@ -33,6 +39,12 @@ export class CityComponent implements OnInit, OnDestroy {
     })
     
     this.subscription.add(sub);
+  }
+
+
+  onShowCityHourly(day:string){
+    let dayofWeek = days[new Date(day).getUTCDay()];
+    this.router.navigate([`${dayofWeek}`],{relativeTo: this.route})
   }
 
   ngOnDestroy(): void {

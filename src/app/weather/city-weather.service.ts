@@ -24,4 +24,11 @@ export class CityWeatherService{
     }));
   }
 
+  getWeatherHourly(cityName:string){
+    return this.http.get(environment.openWeatherUrl+ `forecast?q=${cityName}&units=metric&appid=`+environment.openWeatherAPIKey)
+    .pipe(catchError((err:HttpErrorResponse)=>{
+      return throwError(err);
+    }));
+  }
+
 }
