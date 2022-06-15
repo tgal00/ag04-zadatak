@@ -16,6 +16,7 @@ export class CityWeatherItemComponent implements OnInit {
   @Input() cityName: string = "";
   time: Date = new Date();
   readonly NUMBER_FORMAT: string = '1.0-0';
+  favorite:boolean = false;
 
 
   cityWeather$!: Observable<RootObject>;
@@ -30,6 +31,11 @@ export class CityWeatherItemComponent implements OnInit {
     this.iconUrl$ = this.cityWeatherService.getWeatherForCity(this.cityName).pipe(
       map(value => value ? environment.weatherResIconUrl + `${value.weather[0].icon}@2x.png` : ""));
 
+  }
+
+  onFavorite(value:boolean){
+    this.favorite =value;
+    console.log(this.favorite);
   }
 
   onDeleteCity(){

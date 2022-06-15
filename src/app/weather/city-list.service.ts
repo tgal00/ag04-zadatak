@@ -10,6 +10,7 @@ export class CityListService {
   private cityList: string[] = [];
 
 
+
   constructor(private cityWeatherService: CityWeatherService) { }
   getCities() {
     return this.cityList.slice();

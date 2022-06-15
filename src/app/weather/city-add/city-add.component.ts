@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { catchError, Subscription } from "rxjs";
 import { CityListService } from "../city-list.service";
@@ -14,15 +14,17 @@ export class CityAddComponent implements OnInit, OnDestroy {
 
 
   addCityForm!: FormGroup;
-  cityNumber:number = 0;
-  private subscription:Subscription = new Subscription();
+  cityNumber: Number = 0;
+  private subscription: Subscription = new Subscription();
   constructor(private cityListService: CityListService) { }
 
   ngOnInit(): void {
-    let sub =this.cityListService.cityListSubject.subscribe(res => this.cityNumber=res.length);
+    
+    let sub = this.cityListService.cityListSubject.subscribe(res => this.cityNumber = res.length);
     this.subscription.add(sub);
     this.initForm();
-    this.cityListService.getCities();
+    this.cityNumber = this.cityListService.getCities().length;
+
   }
 
   onSubmit(): void {
@@ -38,6 +40,8 @@ export class CityAddComponent implements OnInit, OnDestroy {
       'cityName': new FormControl(cityName, Validators.required)
     })
   }
+
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
