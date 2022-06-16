@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: "", redirectTo: '/weather', pathMatch: 'full' },
   { path: "auth", component: AuthComponent },
   { path: "weather", component: WeatherComponent, canActivate: [AuthGuard] },
-  { path: "weather/favorites", component: FavoritesComponent, canActivate: [AuthGuard] },
+  { path: "weather/favorites", component: FavoritesComponent },
   { path: "weather/:city", component: CityComponent },
   { path: "weather/:city/:day", component: CityHourlyComponent }
 ];

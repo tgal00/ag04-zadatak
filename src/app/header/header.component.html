@@ -10,6 +10,9 @@
         <li class="nav-item" *ngIf="isAuthenticated">
           <a class="nav-link" aria-current="page" routerLink="/weather">Weather</a>
         </li>
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a class="nav-link" aria-current="page" routerLink="weather/favorites">Favortites</a>
+        </li>
       </ul>
       <ul class="navbar-nav ms-auto me-5">
         <li *ngIf="!isAuthenticated" class="nav-item">
