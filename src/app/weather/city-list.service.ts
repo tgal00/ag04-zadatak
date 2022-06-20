@@ -9,6 +9,10 @@ export class CityListService {
   cityListSubject = new Subject<string[]>();
   private cityList: string[] = [];
 
+  favoriteListSubject = new Subject<string[]>();
+  private favoriteList: string[] = [];
+
+
 
   constructor(private cityWeatherService: CityWeatherService) { }
   getCities() {
@@ -28,22 +32,37 @@ export class CityListService {
       }
 
     if (flag) {
-      this.cityWeatherService.getWeatherForCity(cityName).subscribe(res=> {
+      this.cityWeatherService.getWeatherForCity(cityName).subscribe(res => {
         this.cityList.push(cityName);
         this.cityListSubject.next(this.cityList.slice());
-       }, err => {
+      }, err => {
         alert(err.error.message);
       })
     }
-
-
   }
 
   deleteCity(cityName: string) {
 
+    this.deleteFavorite(cityName);
     this.cityList = this.cityList.filter(c => c != cityName);
     this.cityListSubject.next(this.cityList.slice());
 
+  }
+
+  getFavorites() {
+    return this.favoriteList.slice();
+  }
+
+  addFavorite(cityName: string) {
+    if (!this.favoriteList.find(e => e == cityName)) {
+      this.favoriteList.push(cityName);
+      this.favoriteListSubject.next(this.favoriteList.slice());
+    }
+  }
+
+  deleteFavorite(cityName: string) {
+    this.favoriteList = this.favoriteList.filter(c => c != cityName);
+    this.favoriteListSubject.next(this.favoriteList.slice());
   }
 
 }

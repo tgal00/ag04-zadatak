@@ -1,0 +1,8 @@
+<div class="row justify-content-evenly mt-5 rounded-3 p-3">
+  <h1 class="display-5 text-center mb-3 text-muted">Favorite Cities</h1>
+  <p *ngIf="favoriteList.length==0" class="  text-center mb-3 text-muted">There are no favorite citites yet.</p>
+  <div class="col-md-5 col-xs-12 mb-3" *ngFor="let city of favoriteList">
+    <app-city-weather-item [cityName]="city"></app-city-weather-item>
+
+  </div>
+</div>
